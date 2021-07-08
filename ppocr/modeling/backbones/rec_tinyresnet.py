@@ -149,10 +149,3 @@ class TinyResNet(nn.Layer):
             print(y.shape)
         y = y.reshape([-1, 512, 1, 80])
         return y
-if __name__ == '__main__':
-    import numpy as np
-    net = TinyResNet()
-    img = np.random.random([10, 3, 32, 320])
-    img = img.astype(np.float32)
-    img = paddle.to_tensor(img)
-    out = net(img)
