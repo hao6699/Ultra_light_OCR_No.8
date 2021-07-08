@@ -1,32 +1,32 @@
 Global:
-  use_gpu: false
+  use_gpu: True
   epoch_num: 500
   log_smooth_window: 20
-  print_batch_step: 1
-  save_model_dir: ./output/rec_chinese_tinyresnet_v2.0
-  save_epoch_step: 3
+  print_batch_step: 100
+  save_model_dir: /home/aistudio/work/Ultra_light_OCR_No.17/output/rec_chinese_tinyresnet_v2.0
+  save_epoch_step: 30
   # evaluation is run every 5000 iterations after the 4000th iteration
-  eval_batch_step: [0, 200]
+  eval_batch_step: [0, 2000]
   cal_metric_during_train: True
   pretrained_model:
-  checkpoints: ./output/rec_chinese_tinyresnet_v2.0/test_acc:0.7224/test_0.7224_online_0.7783
+  checkpoints:
   save_inference_dir:
   use_visualdl: False
   infer_img: doc/imgs_words/ch/word_1.jpg
   # for data or label process
-  character_dict_path: ./训练和测试文件/alphabet_simplified.txt
+  character_dict_path: /home/aistudio/work/Ultra_light_OCR_No.17/训练和测试文件/alphabet_simplified.txt
   character_type: ch
   max_text_length: 25
   infer_mode: False
   use_space_char: False
-  save_res_path: ./output/rec/predicts_chinese_tinyresnet_v2.0.txt
+  save_res_path: /home/aistudio/work/Ultra_light_OCR_No.17/output/rec/A榜数据集.txt
 
 
 Optimizer:
   name: Adam
   lr:
     name: Cosine
-    learning_rate: 0.00001
+    learning_rate: 0.001
   regularizer:
     name: 'L2'
     factor: 0.00001
@@ -47,7 +47,7 @@ Architecture:
     fc_decay: 0.00001
 
 Loss:
-  name: FocalCTCLoss
+  name: CTCLoss
 
 PostProcess:
   name: CTCLabelDecode
@@ -59,8 +59,8 @@ Metric:
 Train:
   dataset:
     name: ComplexDataSet
-    data_dir: /newjixieyingpan/百度轻量级文字识别/训练数据集/TrainImages
-    label_file_list: ["./训练和测试文件/LabelTrain_ctcpred_simplified.txt"]
+    data_dir: /home/aistudio/训练数据集/TrainImages
+    label_file_list: ["/home/aistudio/work/Ultra_light_OCR_No.17/训练和测试文件/LabelTrain_ctcpred_simplified.txt"]
     transforms:
       - DecodeImage: # load image
           img_mode: BGR
@@ -73,15 +73,15 @@ Train:
           keep_keys: ['image', 'label', 'length'] # dataloader will return list in this order
   loader:
     shuffle: True
-    batch_size_per_card: 4
+    batch_size_per_card: 128
     drop_last: True
     num_workers: 0
 
 Eval:
   dataset:
     name: SimpleDataSet
-    data_dir: /newjixieyingpan/百度轻量级文字识别/A榜测试数据集/A榜测试数据集/TestAImages
-    label_file_list: ["./训练和测试文件/test_label_simplified.txt"]
+    data_dir: /home/aistudio/A榜测试数据集/TestAImages
+    label_file_list: ["/home/aistudio/work/Ultra_light_OCR_No.17/训练和测试文件/test_label_simplified.txt"]
     transforms:
       - DecodeImage: # load image
           img_mode: BGR
@@ -94,5 +94,5 @@ Eval:
   loader:
     shuffle: False
     drop_last: False
-    batch_size_per_card: 4
+    batch_size_per_card: 128
     num_workers: 0

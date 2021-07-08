@@ -1,25 +1,25 @@
 Global:
-  use_gpu: false
+  use_gpu: True
   epoch_num: 500
   log_smooth_window: 20
   print_batch_step: 50
-  save_model_dir: ./output/rec_chinese_common_v2.0
-  save_epoch_step: 3
+  save_model_dir: /home/aistudio/work/Ultra_light_OCR_No.17/output/rec_chinese_common_v2.0
+  save_epoch_step: 30
   # evaluation is run every 5000 iterations after the 4000th iteration
   eval_batch_step: [0, 2000]
   cal_metric_during_train: True
-  pretrained_model: /home/youmi/PycharmProjects/PaddleOCR/output/rec_chinese_common_v2.0/best_accuracy
+  pretrained_model:
   checkpoints:
   save_inference_dir:
   use_visualdl: False
   infer_img: doc/imgs_words/ch/word_1.jpg
   # for data or label process
-  character_dict_path: /newjixieyingpan/百度轻量级文字识别/训练数据集/alphabet.txt
+  character_dict_path: /home/aistudio/work/Ultra_light_OCR_No.17/训练和测试文件/alphabet.txt
   character_type: ch
   max_text_length: 25
   infer_mode: False
   use_space_char: False
-  save_res_path: ./output/rec/predicts_chinese_common_v2.0.txt
+  save_res_path: /home/aistudio/work/Ultra_light_OCR_No.17/output/rec/predicts_chinese_common_v2.0.txt
   save_ctc_pred: True
 
 Optimizer:
@@ -36,6 +36,7 @@ Optimizer:
 Architecture:
   model_type: rec
   algorithm: CRNN
+  in_channels: 3
   Transform:
   Backbone:
     name: ResNet
@@ -61,8 +62,8 @@ Metric:
 Train:
   dataset:
     name: SimpleDataSet
-    data_dir: /newjixieyingpan/百度轻量级文字识别/训练数据集/TrainImages
-    label_file_list: ["/newjixieyingpan/百度轻量级文字识别/训练数据集/train.txt"]
+    data_dir: /home/aistudio/训练数据集/TrainImages
+    label_file_list: ["/home/aistudio/work/Ultra_light_OCR_No.17/训练和测试文件/LabelTrain.txt"]
     transforms:
       - DecodeImage: # load image
           img_mode: BGR
@@ -75,15 +76,15 @@ Train:
           keep_keys: ['image', 'label', 'length'] # dataloader will return list in this order
   loader:
     shuffle: True
-    batch_size_per_card: 64
+    batch_size_per_card: 128
     drop_last: True
     num_workers: 0
 
 Eval:
   dataset:
     name: SimpleDataSet
-    data_dir: /newjixieyingpan/百度轻量级文字识别/A榜测试数据集/A榜测试数据集/TestAImages
-    label_file_list: ["/newjixieyingpan/百度轻量级文字识别/A榜测试数据集/A榜测试数据集/test_label.txt"]
+    data_dir: /home/aistudio/A榜测试数据集/TestAImages
+    label_file_list: ["/home/aistudio/work/Ultra_light_OCR_No.17/训练和测试文件/test_label.txt"]
     transforms:
       - DecodeImage: # load image
           img_mode: BGR
@@ -96,5 +97,5 @@ Eval:
   loader:
     shuffle: False
     drop_last: False
-    batch_size_per_card: 1
+    batch_size_per_card: 128
     num_workers: 0

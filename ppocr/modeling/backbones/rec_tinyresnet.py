@@ -146,6 +146,5 @@ class TinyResNet(nn.Layer):
         y = self.pool2d_max(y)
         for block in self.block_list:
             y = block(y)
-            print(y.shape)
         y = y.reshape([-1, 512, 1, 80])
         return y

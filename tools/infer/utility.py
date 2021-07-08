@@ -69,7 +69,7 @@ def parse_args():
     parser.add_argument(
         "--rec_char_dict_path",
         type=str,
-        default="/newjixieyingpan/百度轻量级文字识别/训练数据集/alphabet_simplified.txt")
+        default="/home/aistudio/work/Ultra_light_OCR_No.17/训练和测试文件/alphabet_simplified.txt")
     parser.add_argument("--use_space_char", type=str2bool, default=True)
     parser.add_argument(
         "--vis_font_path", type=str, default="./doc/fonts/simfang.ttf")
