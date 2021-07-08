@@ -7,6 +7,8 @@
 3. 提出了一种半监督式的数据增强方法, 可以实现任意方向的文字识别
 4. 采用了CTC Loss和Focal Loss的结合
 
+ai studio项目地址: https://aistudio.baidu.com/aistudio/projectdetail/1974552
+
 ## 目录
 
 - [算法模型](#算法介绍)
